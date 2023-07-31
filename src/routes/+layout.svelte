@@ -6,7 +6,7 @@
     font-family: 'Roboto', sans-serif;
     background-color: #e09a3e;
     color: #fff;
-    font-size: 2em;
+    
     margin: 0;
   }
 </style>
