@@ -19,7 +19,7 @@
 	<p>Copyright © {footerDateYear} AffirMotion</p>
 </footer>
 
-<style>
+<style lang="scss">
 	@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 	:global(html) {
 		scroll-behavior: smooth;
@@ -35,5 +35,9 @@
 
 	:global(a) {
 		color: #fff;
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 </style>
