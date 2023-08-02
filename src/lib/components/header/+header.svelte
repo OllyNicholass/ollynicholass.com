@@ -1,16 +1,16 @@
 <script lang="ts">
-  import Nav from './+nav.svelte';
+	import Hamburger from './+hamburger.svelte';
   import { Drawer  } from '@skeletonlabs/skeleton';
 </script>
 
 <div class="header-wrap z-40">
   <header>
-    <span>0lly</span>
-    <div class="nav-wrap">
-      <Nav />
+    <span><a href="/">0lly</a></span>
+    <div class="burger-wrap">
+      <Hamburger />
     </div>
   </header>
-  <Drawer position="bottom" />
+  <Drawer />
 </div>
 
 <style lang="scss">
@@ -38,7 +38,7 @@
     
   }
 
-  .nav-wrap {
+  .burger-wrap {
     margin-left: auto;
   }
 </style>
