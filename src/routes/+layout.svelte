@@ -1,30 +1,37 @@
-<script>
-
-	import Header from "$lib/components/header/+header.svelte";
-
+<script lang="ts">
+	// Theme
+  import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+  // Skeleton Core
+  import '@skeletonlabs/skeleton/styles/skeleton.css';
+  import '../app.postcss';
+	import Header from '$lib/components/header/+header.svelte';
+	let footerDateYear = new Date().getFullYear();
 </script>
-
 <Header />
 
-<div class="container">
-  <slot />
+<div class="container mx-auto my-4">
+	<slot />
 </div>
 
+<footer>
+	<p>Copyright © {footerDateYear} AffirMotion</p>
+</footer>
+
 <style>
-  @import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
-  :global(body) {
-    font-family: 'Roboto', sans-serif;
-    background-color: #10101a;
-    color: #84859c;
-    
-    margin: 0;
-  }
+	@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+	
+	:global(body) {
+		font-family: 'Roboto', sans-serif;
+		background-color: #10101a;
+		color: #84859c;
 
-  :global(a) {
-    color: #fff;
-  }
+		margin: 0;
+	}
 
-  .container {
-    padding-top: 2em;
-  }
+	:global(a) {
+		color: #fff;
+	}
 </style>

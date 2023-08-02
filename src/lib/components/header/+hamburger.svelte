@@ -1,13 +1,20 @@
 <script lang="ts">
-  export let open: boolean;
+  export let open: boolean = false;
+  import { drawerStore  } from '@skeletonlabs/skeleton';
+
+  const handleClick = () => {
+    open = !open
+    !open ? drawerStore.close() : drawerStore.open()
+  }
 </script>
 
 <button
     class="hamburger hamburger--elastic"
     aria-label="Hamburger menu"
-    class:is-active={open}
-    on:click={() => (open = !open)}
+    class:is-active={$drawerStore.open}
+    on:click={handleClick}
 >
+    <span class="hamburger-label" aria-hidden>MENU</span>
     <span class="hamburger-box">
         <span class="hamburger-inner" />
     </span>
@@ -21,8 +28,9 @@
   // Hamburger
   // ==================================================
   .hamburger {
-      padding: var(--padding, 10px);
-      display: inline-block;
+      padding: var(--padding, 0);
+      display: inline-flex;
+      align-items: center;
       cursor: pointer;
 
       transition-property: opacity, filter;
@@ -57,6 +65,12 @@
               background-color: var(--active-color, var(--color, black));
           }
       }
+  }
+
+  .hamburger-label {
+    color: var(--color);
+    font-size: .75rem;
+    padding-right: .5rem;
   }
 
   .hamburger-box {
