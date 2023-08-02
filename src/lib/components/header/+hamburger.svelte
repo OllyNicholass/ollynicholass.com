@@ -1,10 +1,23 @@
 <script lang="ts">
   export let open: boolean = false;
-  import { drawerStore  } from '@skeletonlabs/skeleton';
+  import { drawerStore, type DrawerSettings  } from '@skeletonlabs/skeleton';
 
   const handleClick = () => {
     open = !open
-    !open ? drawerStore.close() : drawerStore.open()
+
+    const drawerSettings: DrawerSettings = {
+        id: 'example-3',
+        // Provide your property overrides:
+        bgBackdrop: 'bg-surface-backdrop-token justify-center',
+        bgDrawer: 'mt-auto bg-surface-100-800-token',
+        height: 'h-1/3',
+        width: 'w-full md:w-4/5',
+        padding: 'p-4',
+        rounded: 'rounded-[24px]',
+        position: 'bottom'
+    };
+
+    !open ? drawerStore.close() : drawerStore.open(drawerSettings)
   }
 </script>
 

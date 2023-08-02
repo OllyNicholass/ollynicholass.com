@@ -5,8 +5,10 @@
   import '@skeletonlabs/skeleton/styles/skeleton.css';
   import '../app.postcss';
 	import Header from '$lib/components/header/+header.svelte';
+	import SkipContent from '$lib/components/header/+skip-content.svelte';
 	let footerDateYear = new Date().getFullYear();
 </script>
+<SkipContent />
 <Header />
 
 <div class="container mx-auto my-4">
@@ -17,7 +19,7 @@
 	<p>Copyright © {footerDateYear} AffirMotion</p>
 </footer>
 
-<style>
+<style lang="scss">
 	@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
 	:global(html) {
 		scroll-behavior: smooth;
@@ -33,5 +35,9 @@
 
 	:global(a) {
 		color: #fff;
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 </style>
