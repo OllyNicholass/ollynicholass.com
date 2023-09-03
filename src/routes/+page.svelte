@@ -1,21 +1,12 @@
 <script lang="ts">
-  import Jumbo from '$lib/components/home/+jumbo.svelte'
+  import Home from '$lib/components/home/+home.svelte';
+	import Maintenence from '$lib/components/home/+maintenence.svelte';
+  let isMaintenence: boolean;
+  isMaintenence = true;
 </script>
 
-<Jumbo />
-
-{#each {length: 10} as _, i}
-<div class="center mt-6" data-iteration={i}>
-  <h1 class="h1">ollynicholass.com</h1>
-  <h2 class="h2">coming soon</h2>
-</div>
-{/each}
-
-<style>
-  .center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-</style>
+{#if isMaintenence}
+  <Maintenence />
+  {:else}
+  <Home />
+{/if}

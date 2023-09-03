@@ -1,4 +1,8 @@
-<a class="btn variant-filled" href="#main">Skip to main content</a>
+<script lang="ts">
+  export let anchorId: string = 'main';
+</script>
+
+<a class="btn variant-filled" href="#{anchorId}">Skip to main content</a>
 
 <style lang="scss">
 a {
