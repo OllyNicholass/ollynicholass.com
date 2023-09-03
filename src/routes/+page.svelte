@@ -1,15 +1,12 @@
-<div class="center">
-  <h1>ollynicholass.com</h1>
-  <h2>coming soon</h2>
-</div>
+<script lang="ts">
+  import Home from '$lib/components/home/+home.svelte';
+	import Maintenence from '$lib/components/home/+maintenence.svelte';
+  let isMaintenence: boolean;
+  isMaintenence = true;
+</script>
 
-<style>
-  .center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-</style>
+{#if isMaintenence}
+  <Maintenence />
+  {:else}
+  <Home />
+{/if}
