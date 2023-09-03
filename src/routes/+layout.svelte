@@ -1,9 +1,4 @@
 <script lang="ts">
-	// Theme
-  // import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
-	import '../theme.postcss';
-  // Skeleton Core (inc Tailwind)
-  import '@skeletonlabs/skeleton/styles/skeleton.css';
   import '../app.postcss';
 	import Header from '$lib/components/header/+header.svelte';
 	import SkipContent from '$lib/components/header/+skip-content.svelte';
@@ -35,8 +30,6 @@
 	}
 	
 	:global(body) {
-		// font-family: 'Roboto', sans-serif;
-		font-family: 'Rubik', sans-serif;
 		margin: 0;
 	}
 	

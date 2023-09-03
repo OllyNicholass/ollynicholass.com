@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss';
 import forms from '@tailwindcss/forms'
 import typography from '@tailwindcss/typography'
 import { skeleton } from '@skeletonlabs/tw-plugin';
+import { customTheme } from './src/themes/custom';
 
 const config = {
 	darkMode: 'class',
@@ -13,7 +14,12 @@ const config = {
 	plugins: [
 		forms,
 		typography,
-		skeleton
+		skeleton({
+			themes: {
+				preset: [ "skeleton" ] ,
+				custom: [ customTheme ]
+			}
+		})
 	]
 } satisfies Config;
 
