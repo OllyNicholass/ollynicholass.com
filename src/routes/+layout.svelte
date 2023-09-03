@@ -2,6 +2,8 @@
   import '../app.postcss';
 	import Header from '$lib/components/header/+header.svelte';
 	import SkipContent from '$lib/components/header/+skip-content.svelte';
+	import { initializeStores, Drawer } from '@skeletonlabs/skeleton';
+	initializeStores();
 	let footerDateYear = new Date().getFullYear();
 </script>
 
@@ -12,6 +14,7 @@
 </svelte:head>
 
 <SkipContent anchorId="main" />
+<Drawer />
 <Header />
 
 <div id="main" class="mb-4">

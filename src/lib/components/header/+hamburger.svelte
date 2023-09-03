@@ -1,6 +1,7 @@
 <script lang="ts">
   export let open: boolean = false;
-  import { drawerStore, type DrawerSettings  } from '@skeletonlabs/skeleton';
+  import { getDrawerStore, type DrawerSettings  } from '@skeletonlabs/skeleton';
+  let drawerStore = getDrawerStore();
 
   const handleClick = () => {
     open = !open

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Hamburger from './+hamburger.svelte';
-  import { Drawer, LightSwitch, autoModeWatcher, setInitialClassState  } from '@skeletonlabs/skeleton';
+  import { LightSwitch, autoModeWatcher, setInitialClassState  } from '@skeletonlabs/skeleton';
 </script>
 
 <svelte:head>
@@ -20,7 +20,6 @@
       <LightSwitch />
     </div>
   </header>
-  <Drawer />
 </div>
 
 <style lang="scss">
