@@ -27,7 +27,10 @@
 </div>
 
 <footer class="flex justify-center">
-	<span class="badge variant-soft font-medium">Copyright © {footerDateYear} olly nicholass</span>
+	<span class="badge variant-soft font-medium"
+		><span>Copyright © {footerDateYear} olly nicholass</span>
+		<a href="/privacy-policy">Privacy Policy</a></span
+	>
 </footer>
 
 <style lang="scss">
