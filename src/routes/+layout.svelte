@@ -22,9 +22,9 @@
 <Header />
 <CookieConsent />
 
-<div id="main" class="mb-4">
+<main id="main" class="mb-4">
 	<slot />
-</div>
+</main>
 
 <footer class="flex justify-center">
 	<span class="badge variant-soft font-medium"
