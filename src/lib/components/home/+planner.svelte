@@ -10,138 +10,116 @@
 	// Define the structure of a question
 	type Question = {
 		question: string;
-		options: string[];
-		next: Record<string, number | null>;
+		inputType: 'radio' | 'checkbox' | 'text';
+		options?: string[];
+		next?: Record<string, number>;
 	};
 
 	// Define questions and their corresponding options
 	const questions: Question[] = [
 		{
-			question: 'Do you currently have a website?',
-			options: ['Yes', 'No'],
-			next: {
-				Yes: 1,
-				No: 2
-			}
+			question: 'Are you a business or an individual?',
+			inputType: 'radio',
+			options: ['Business', 'Individual']
 		},
 		{
-			question: 'What do you like or dislike about your current website?',
+			question: 'What is the primary goal of your website?',
+			inputType: 'radio',
 			options: [
-				'I like the design',
-				'It lacks certain features',
-				"It's too slow",
+				'Sell products or services',
+				'Showcase my portfolio',
+				'Provide information',
+				'Generate leads',
 				'Other (please specify)'
 			],
 			next: {
-				default: 2
+				'Sell products or services': 3,
+				'Showcase my portfolio': 3,
+				'Provide information': 3,
+				'Generate leads': 3
 			}
 		},
 		{
-			question: 'What is the main goal of your website?',
-			options: ['Sell products or services', 'Share information about my business', 'Both'],
-			next: {
-				default: 3
-			}
+			question: 'What is the primary goal of your website? (Please specify)',
+			inputType: 'text'
 		},
 		{
-			question: 'Who are your main target customers?',
-			options: ['Individuals', 'Businesses', 'Both'],
-			next: {
-				default: 4
-			}
-		},
-		{
-			question: 'What main features do you want on your website?',
+			question: 'Who is your target audience?',
+			inputType: 'checkbox',
 			options: [
-				'Online store functionality',
-				'Contact forms for inquiries',
-				'Information pages about products/services'
+				'General public',
+				'Businesses',
+				'Specific demographic (please specify)',
+				'Other (please specify)'
 			],
 			next: {
-				default: 5
+				'General public': 5,
+				Businesses: 5,
+				'Specific demographic (please specify)': 4,
+				'Other (please specify)': 4
 			}
+		},
+		{
+			question: 'Who is your target audience? (Please specify)',
+			inputType: 'text'
+		},
+		{
+			question: 'What features and functionalities do you need on your website?',
+			inputType: 'checkbox',
+			options: [
+				'E-commerce functionality',
+				'Contact forms',
+				'User accounts',
+				'Social media integration',
+				'Content management system (CMS)',
+				'Other (please specify)'
+			],
+			next: {
+				'E-commerce functionality': 7,
+				'Contact forms': 7,
+				'User accounts': 7,
+				'Social media integration': 7,
+				'Content management system (CMS)': 7,
+				'Other (please specify)': 6
+			}
+		},
+		{
+			question: 'What features and functionalities do you need on your website? (Please specify)',
+			inputType: 'text'
 		},
 		{
 			question: 'How often do you anticipate updating your website content?',
-			options: ['Rarely', 'Occasionally', 'Frequently'],
-			next: {
-				default: 6
-			}
+			inputType: 'radio',
+			options: ['Rarely', 'Occasionally', 'Frequently']
 		},
 		{
-			question: 'What design style do you prefer?',
-			options: ['Modern and sleek', 'Classic and traditional', 'Colorful and vibrant'],
+			question: 'Do you have any design preferences or existing branding guidelines?',
+			inputType: 'radio',
+			options: ['Yes (please specify)', 'No'],
 			next: {
-				default: 7
-			}
-		},
-		{
-			question: 'What is your budget range for the website project?',
-			options: ['Low budget', 'Moderate budget', 'High budget'],
-			next: {
-				default: 8
-			}
-		},
-		{
-			question: 'Do you have a specific deadline for your website to go live?',
-			options: ['Yes', 'No'],
-			next: {
-				Yes: 9,
 				No: 10
 			}
 		},
 		{
-			question: 'What is your preferred deadline for your website to go live?',
-			options: ['Within 1 month', 'Within 3 months', 'Within 6 months'],
-			next: {
-				default: 10
-			}
+			question:
+				'Do you have any design preferences or existing branding guidelines? (Please specify)',
+			inputType: 'text'
 		},
 		{
-			question: 'Do you foresee the need for your website to expand in the future?',
-			options: ['Yes', 'No'],
-			next: {
-				default: 11
-			}
+			question: 'What would be your desired timeline for the project?',
+			inputType: 'radio',
+			options: ['Less than 1 month', '1-3 months', '3-6 months', '6-12 months', 'Flexible']
 		},
 		{
-			question: 'Are there specific websites you admire?',
-			options: ['Yes (please provide examples)', 'No'],
-			next: {
-				default: 12
-			}
-		},
-		{
-			question: 'How important is website security to you?',
-			options: ['Very important', 'Somewhat important', 'Not very important'],
-			next: {
-				default: 13
-			}
-		},
-		{
-			question: 'How important is it that your website appears on search engines?',
-			options: ['Very important', 'Moderately important', 'Not important'],
-			next: {
-				default: 14
-			}
-		},
-		{
-			question: 'Do you have a preferred hosting provider?',
-			options: ['Yes (please specify)', 'No preference'],
-			next: {
-				default: 15
-			}
-		},
-		{
-			question: 'How much ongoing support would you like for your website?',
+			question: 'What is your budget range for the project?',
+			inputType: 'radio',
 			options: [
-				'Basic support',
-				'Regular check-ups and updates',
-				'Comprehensive support and maintenance plan'
-			],
-			next: {
-				default: null // No more questions
-			}
+				'£0 - £500',
+				'£500 - £1,000',
+				'£1,000 - £5,000',
+				'£5,000 - £10,000',
+				'More than £10,000'
+			]
 		}
 	];
 
@@ -168,6 +146,8 @@
 	let currentQuestionIndex = 0;
 	let currentQuestion: Question = questions[currentQuestionIndex];
 	let displayQuestions = true;
+	let textInput: HTMLInputElement;
+	let checkboxOptions: string[] = [];
 
 	// function goBack() {
 	// 	if (answeredQuestions.length > 0) {
@@ -181,8 +161,24 @@
 	function nextQuestion(answer: string) {
 		updateAnswers(currentQuestion.question, answer);
 
-		const nextQuestionIndex = currentQuestion.next[answer] || currentQuestion.next.default;
-		if (nextQuestionIndex === null) {
+		let nextQuestionIndex: number;
+
+		if (currentQuestion.inputType === 'checkbox') {
+			let answers = answer.split(', ');
+			let skippableAnswers: number[] = [];
+
+			for (let i = 0; i < answers.length; i++) {
+				const a = answers[i];
+				if (currentQuestion.next?.[a] != null) {
+					skippableAnswers.push(currentQuestion.next?.[a]);
+				}
+			}
+			nextQuestionIndex = Math.min(...skippableAnswers);
+		} else {
+			nextQuestionIndex = currentQuestion.next?.[answer] ?? currentQuestionIndex + 1;
+		}
+
+		if (nextQuestionIndex > questions.length) {
 			displayAnswers();
 			return;
 		}
@@ -194,18 +190,48 @@
 
 <section class="flex flex-col justify-center items-center">
 	{#if currentQuestion && displayQuestions}
-		<section>
+		<form>
 			<!-- {#if answeredQuestions.length > 0}
 				<button on:click={goBack}>Back</button>
 			{/if} -->
 			<h2>{currentQuestion.question}</h2>
-			{#each currentQuestion.options as option}
+			{#if currentQuestion.inputType === 'text'}
+				<div class="input-group input-group-divider grid-cols-[1fr_auto]">
+					<input
+						type="text"
+						bind:this={textInput}
+						on:keydown={(e) => e.key === 'Enter' && nextQuestion(e.target.value)}
+					/>
+					<button class="variant-filled-secondary" on:click={(e) => nextQuestion(textInput.value)}
+						>Submit</button
+					>
+				</div>
+			{:else if currentQuestion.inputType === 'checkbox'}
+				{#each currentQuestion.options ?? [] as option}
+					<label>
+						<input
+							type="checkbox"
+							class="checkbox"
+							name={option.replace(/\W/g, '_')}
+							value={option}
+							bind:group={checkboxOptions}
+						/>
+						{option}
+					</label>
+				{/each}
 				<button
-					class="text-base font-medium btn variant-filled-primary mx-2"
-					on:click={() => nextQuestion(option)}>{option}</button
+					class="variant-filled-secondary"
+					on:click={() => nextQuestion(checkboxOptions.join(', '))}>Submit</button
 				>
-			{/each}
-		</section>
+			{:else}
+				{#each currentQuestion.options ?? [] as option}
+					<button
+						class="text-base font-medium btn variant-filled-primary mx-2"
+						on:click={() => nextQuestion(option)}>{option}</button
+					>
+				{/each}
+			{/if}
+		</form>
 	{/if}
 
 	<pre>{JSON.stringify($answers, null, 2)}</pre>
