@@ -8,65 +8,87 @@
 	};
 
 	// Define the structure of a question
-	type Question = {
+	interface IQuestion {
 		question: string;
 		inputType: 'radio' | 'checkbox' | 'text';
 		options?: string[];
 		next?: Record<string, number>;
-	};
+	}
+
+	class QuestionText implements IQuestion {
+		question: string;
+		inputType: 'text';
+		constructor(question: string) {
+			this.question = question;
+			this.inputType = 'text';
+		}
+	}
+
+	class QuestionRadio implements IQuestion {
+		question: string;
+		inputType: 'radio';
+		options: string[];
+		next?: Record<string, number>;
+		constructor(question: string, options: string[], next?: Record<string, number>) {
+			this.question = question;
+			this.inputType = 'radio';
+			this.options = options;
+			this.next = next;
+		}
+	}
+
+	class QuestionCheckbox implements IQuestion {
+		question: string;
+		inputType: 'checkbox';
+		options: string[];
+		next?: Record<string, number>;
+		constructor(question: string, options: string[], next?: Record<string, number>) {
+			this.question = question;
+			this.inputType = 'checkbox';
+			this.options = options;
+			this.next = next;
+		}
+	}
 
 	// Define questions and their corresponding options
-	const questions: Question[] = [
-		{
-			question: 'Are you a business or an individual?',
-			inputType: 'radio',
-			options: ['Business', 'Individual']
-		},
-		{
-			question: 'What is the primary goal of your website?',
-			inputType: 'radio',
-			options: [
+	const questions: IQuestion[] = [
+		new QuestionRadio('Are you a business or an individual?', ['Business', 'Individual']),
+		new QuestionRadio(
+			'What is the primary goal of your website?',
+			[
 				'Sell products or services',
 				'Showcase my portfolio',
 				'Provide information',
 				'Generate leads',
 				'Other (please specify)'
 			],
-			next: {
+			{
 				'Sell products or services': 3,
 				'Showcase my portfolio': 3,
 				'Provide information': 3,
 				'Generate leads': 3
 			}
-		},
-		{
-			question: 'What is the primary goal of your website? (Please specify)',
-			inputType: 'text'
-		},
-		{
-			question: 'Who is your target audience?',
-			inputType: 'checkbox',
-			options: [
+		),
+		new QuestionText('What is the primary goal of your website? (Please specify)'),
+		new QuestionCheckbox(
+			'Who is your target audience?',
+			[
 				'General public',
 				'Businesses',
 				'Specific demographic (please specify)',
 				'Other (please specify)'
 			],
-			next: {
+			{
 				'General public': 5,
 				Businesses: 5,
 				'Specific demographic (please specify)': 4,
 				'Other (please specify)': 4
 			}
-		},
-		{
-			question: 'Who is your target audience? (Please specify)',
-			inputType: 'text'
-		},
-		{
-			question: 'What features and functionalities do you need on your website?',
-			inputType: 'checkbox',
-			options: [
+		),
+		new QuestionText('Who is your target audience? (Please specify)'),
+		new QuestionCheckbox(
+			'What features and functionalities do you need on your website?',
+			[
 				'E-commerce functionality',
 				'Contact forms',
 				'User accounts',
@@ -74,7 +96,7 @@
 				'Content management system (CMS)',
 				'Other (please specify)'
 			],
-			next: {
+			{
 				'E-commerce functionality': 7,
 				'Contact forms': 7,
 				'User accounts': 7,
@@ -82,45 +104,39 @@
 				'Content management system (CMS)': 7,
 				'Other (please specify)': 6
 			}
-		},
-		{
-			question: 'What features and functionalities do you need on your website? (Please specify)',
-			inputType: 'text'
-		},
-		{
-			question: 'How often do you anticipate updating your website content?',
-			inputType: 'radio',
-			options: ['Rarely', 'Occasionally', 'Frequently']
-		},
-		{
-			question: 'Do you have any design preferences or existing branding guidelines?',
-			inputType: 'radio',
-			options: ['Yes (please specify)', 'No'],
-			next: {
-				No: 10
+		),
+		new QuestionText(
+			'What features and functionalities do you need on your website? (Please specify)'
+		),
+		new QuestionRadio('How often do you anticipate updating your website content?', [
+			'Rarely',
+			'Occasionally',
+			'Frequently'
+		]),
+		new QuestionRadio(
+			'Do you have any design preferences or existing branding guidelines?',
+			['Yes (please specify)', 'No'],
+			{
+				'Yes (please specify)': 9
 			}
-		},
-		{
-			question:
-				'Do you have any design preferences or existing branding guidelines? (Please specify)',
-			inputType: 'text'
-		},
-		{
-			question: 'What would be your desired timeline for the project?',
-			inputType: 'radio',
-			options: ['Less than 1 month', '1-3 months', '3-6 months', '6-12 months', 'Flexible']
-		},
-		{
-			question: 'What is your budget range for the project?',
-			inputType: 'radio',
-			options: [
-				'£0 - £500',
-				'£500 - £1,000',
-				'£1,000 - £5,000',
-				'£5,000 - £10,000',
-				'More than £10,000'
-			]
-		}
+		),
+		new QuestionText(
+			'Do you have any design preferences or existing branding guidelines? (Please specify)'
+		),
+		new QuestionRadio('What would be your desired timeline for the project?', [
+			'Less than 1 month',
+			'1-3 months',
+			'3-6 months',
+			'6-12 months',
+			'Flexible'
+		]),
+		new QuestionRadio('What is your budget range for the project?', [
+			'£0 - £500',
+			'£500 - £1,000',
+			'£1,000 - £5,000',
+			'£5,000 - £10,000',
+			'More than £10,000'
+		])
 	];
 
 	// Svelte store for managing answers
@@ -144,7 +160,7 @@
 	}
 
 	let currentQuestionIndex = 0;
-	let currentQuestion: Question = questions[currentQuestionIndex];
+	let currentQuestion: IQuestion = questions[currentQuestionIndex];
 	let displayQuestions = true;
 	let textInput: HTMLInputElement;
 	let checkboxOptions: string[] = [];
