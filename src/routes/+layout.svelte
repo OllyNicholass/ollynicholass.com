@@ -34,8 +34,6 @@
 </footer>
 
 <style lang="scss">
-	@import 'https://fonts.googleapis.com/css?family=Roboto&display=swap';
-	@import 'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;700&display=swap';
 	:global(html) {
 		scroll-behavior: smooth;
 	}
