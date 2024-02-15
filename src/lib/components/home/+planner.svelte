@@ -1,65 +1,14 @@
 <script context="module" lang="ts">
 	// Importing a Svelte store for managing answers
 	import { writable } from 'svelte/store';
-
-	// Defining the answer type
-	type Answer = {
-		[question: string]: { questionName: string; questionIndex: number; answer: string };
-	};
-
-	class Option {
-		text: string;
-		description?: string;
-		icon?: string;
-		constructor(text: string, description?: string, icon?: string) {
-			this.text = text;
-			this.description = description;
-			this.icon = icon;
-		}
-	}
-
-	// Define the structure of a question
-	interface IQuestion {
-		question: string;
-		inputType: 'radio' | 'checkbox' | 'text';
-		options?: Option[];
-		next?: Record<string, number>;
-	}
-
-	class QuestionText implements IQuestion {
-		question: string;
-		inputType: 'text';
-		constructor(question: string) {
-			this.question = question;
-			this.inputType = 'text';
-		}
-	}
-
-	class QuestionRadio implements IQuestion {
-		question: string;
-		inputType: 'radio';
-		options: Option[];
-		next?: Record<string, number>;
-		constructor(question: string, options: Option[], next?: Record<string, number>) {
-			this.question = question;
-			this.inputType = 'radio';
-			this.options = options;
-			this.next = next;
-		}
-	}
-
-	class QuestionCheckbox implements IQuestion {
-		question: string;
-		inputType: 'checkbox';
-		options: Option[];
-		next?: Record<string, number>;
-		constructor(question: string, options: Option[], next?: Record<string, number>) {
-			this.question = question;
-			this.inputType = 'checkbox';
-			this.options = options;
-			this.next = next;
-		}
-	}
+	import {
+		type Answer,
+		Option,
+		type IQuestion,
+		QuestionCheckbox,
+		QuestionRadio,
+		QuestionText
+	} from '$lib';
 
 	// Define questions and their corresponding options
 	const questions: IQuestion[] = [
